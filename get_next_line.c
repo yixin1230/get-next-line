@@ -6,11 +6,13 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 16:48:59 by yizhang       #+#    #+#                 */
-/*   Updated: 2022/11/02 16:48:59 by yizhang       ########   odam.nl         */
+/*   Updated: 2022/11/03 11:39:37 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-get_next_line()
+#include "get_next_line.h"
+
+char	*get_next_line(int fd)
 {
 	
 }
