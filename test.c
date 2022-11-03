@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_next_line.h                                    :+:    :+:            */
+/*   test.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/11/02 16:48:01 by yizhang       #+#    #+#                 */
-/*   Updated: 2022/11/03 19:24:19 by yizhang       ########   odam.nl         */
+/*   Created: 2022/11/03 19:26:18 by yizhang       #+#    #+#                 */
+/*   Updated: 2022/11/03 19:26:52 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "get_next_line.h"
+#include <fcntl.h>//open
+#include <stdio.h>
 
-# include "get_next_line.h"
-# include <unistd.h>
-# include <stdlib.h>
+int main(void)
+{  
+	int	fd;
+	char *line;
 
-typedef struct t_list 
-{
-	char	*content;
-	struct	t_list *next;
-}t_list;
-
-char	*get_next_line(int fd);
-
-#endif
+	fd = open("text",O_RDONLY);
+	line = get_next_line(fd);
+	if (line != NULL)
+	{
+		printf("%s",line);
+		printf("%s",line);
+		free(line);
+	}
+	close(fd);
+	return (0);
+}

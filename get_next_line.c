@@ -6,18 +6,27 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 16:48:59 by yizhang       #+#    #+#                 */
-/*   Updated: 2022/11/03 17:40:15 by yizhang       ########   odam.nl         */
+/*   Updated: 2022/11/03 19:27:08 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <fcntl.h>//open
-#include <stdio.h>
+
+static t_list	*new_node(char *content)
+{
+	t_list	*node;
+
+	node = malloc(sizeof(t_list));
+	node->content = content;
+	node->next = NULL;
+	return (node);
+}
 
 char	*get_next_line(int fd)
 {
 	char	*file;
 	char	*oneline;
+	static t_list *node;
 	int		len;
 	int		i;
 
@@ -50,21 +59,6 @@ char	*get_next_line(int fd)
 	}
 	oneline[i] = '\n';
 	oneline[i++] = '\0';
-	return (oneline);
-}
-
-int main(void)
-{  
-	int	fd;
-	char *line;
-
-	fd = open("text",O_RDONLY);
-	line = get_next_line(fd);
-	if (line != NULL)
-	{
-		printf("%s",line);
-		free(line);
-	}
-	close(fd);
-	return (0);
+	node = new_node(oneline);
+	return (node->content);
 }
