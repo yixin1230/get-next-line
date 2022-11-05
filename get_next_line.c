@@ -12,44 +12,54 @@
 
 #include "get_next_line.h"
 
-static t_list	*new_node(char *content)
+static char	*find_nl(int fd,char *store_str)
 {
-	t_list	*node;
-
-	node = NULL;
-	if (content)
-		node = malloc(sizeof(t_list));
-	if (!node)
-		free(node);
-	node->content = content;
-	node->next = NULL;
-	return (node);
-}
-
-char	*get_next_line(int fd)
-{
-	char	file;
-	t_list	*node;
-	char	*oneline;
 	int		i;
-	int		len;
-
-	len = 0;
+	char	*buff;
+	
 	i = 1;
-	file = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	//creat space for str ,use read()function read the file until we find '\n'
-	if (!file)
+	buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!buff)
 	{
-		free(file);
+		free(buff);
 		return(NULL);
 	}
 	while (i)
 	{
-		i = read(fd, file, BUFFER_SIZE);
+		i = read(fd, buff, BUFFER_SIZE);
+		if (i < 0)
+			return (NULL);
+		if (i == 0)
+			break;
+		if(!store_str)
+			store_str = ft_strdup_gnl(buff);
+		else
+			store_str = ft_strjoin_gnl(buff);
+		if (ft_strchr_gnl(store_str, '\n') != 0)
+			return (store_str);
 	}
-	oneline = malloc((len * i + 2)*sizeof(char));
-	newline_cpystr(0, oneline, i, file);
-	//if we find '\n', return the line.
-	node = new_node(oneline);
-	return (node->content);
+	return (store_str);
+}
+
+static t_list *get_l(char *store_str)
+{
+	t_list	*node;
+	int		i;
+
+	i = 0;
+	whlie (store_str[i] != '\n')
+		i++;
+	line = malloc((i + 1) * sizeof(char));
+	line = substr(store_str,i)
+}
+
+char	*get_next_line(int fd)
+{
+	char	*buff;
+	char	*store_str;
+	char	*oneline;
+
+	store_str = find_nl(fd,store_str);
+	oneline = get_l(store_str);
+	return (oneline);
 }
