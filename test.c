@@ -17,16 +17,10 @@
 int main(void)
 {  
 	int	fd;
-	char *line;
 
 	fd = open("text",O_RDONLY);
-	line = get_next_line(fd);
-	if (line != NULL)
-	{
-		printf("%s",line);
-		printf("%s",line);
-		free(line);
-	}
+	printf("1:%s\n",get_next_line(fd));
+	printf("2:%s\n",get_next_line(fd));
 	close(fd);
 	return (0);
 }

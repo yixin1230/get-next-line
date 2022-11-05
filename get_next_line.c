@@ -16,7 +16,11 @@ static t_list	*new_node(char *content)
 {
 	t_list	*node;
 
-	node = malloc(sizeof(t_list));
+	node = NULL;
+	if (content)
+		node = malloc(sizeof(t_list));
+	if (!node)
+		free(node);
 	node->content = content;
 	node->next = NULL;
 	return (node);
@@ -24,41 +28,28 @@ static t_list	*new_node(char *content)
 
 char	*get_next_line(int fd)
 {
-	char	*file;
+	char	file;
+	t_list	*node;
 	char	*oneline;
-	static t_list *node;
-	int		len;
 	int		i;
+	int		len;
 
-	len = 1024;
-	i = 0;
-	if(fd == -1)
-		return (NULL);
-	file = malloc(sizeof(char) * (len + 1));
-	if(!file)
+	len = 0;
+	i = 1;
+	file = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	//creat space for str ,use read()function read the file until we find '\n'
+	if (!file)
 	{
 		free(file);
-		return (NULL);
+		return(NULL);
 	}
-	read(fd, file, len);
-	while (file[i] != '\n')
+	while (i)
 	{
-		i++;
+		i = read(fd, file, BUFFER_SIZE);
 	}
-	oneline = malloc(sizeof(char) * (i + 2));
-	if(!oneline)
-	{
-		free(oneline);
-		return (NULL);
-	}
-	i = 0;
-	while(file[i] != '\n')
-	{
-		oneline[i] = file[i];
-		i++;
-	}
-	oneline[i] = '\n';
-	oneline[i++] = '\0';
+	oneline = malloc((len * i + 2)*sizeof(char));
+	newline_cpystr(0, oneline, i, file);
+	//if we find '\n', return the line.
 	node = new_node(oneline);
 	return (node->content);
 }
