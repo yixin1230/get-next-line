@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 16:48:59 by yizhang       #+#    #+#                 */
-/*   Updated: 2022/11/03 19:27:08 by yizhang       ########   odam.nl         */
+/*   Updated: 2022/11/07 17:17:55 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,31 +34,52 @@ static char	*find_nl(int fd,char *store_str)
 		if(!store_str)
 			store_str = ft_strdup_gnl(buff);
 		else
-			store_str = ft_strjoin_gnl(buff);
+			store_str = ft_strjoin_gnl(store_str, buff);
 		if (ft_strchr_gnl(store_str, '\n') != 0)
 			return (store_str);
 	}
 	return (store_str);
 }
 
-static t_list *get_l(char *store_str)
+char *get_l(char *store_str)
 {
-	t_list	*node;
 	int		i;
+	int 	len;
+	char	*line;
+	char	*tmp;
 
 	i = 0;
-	whlie (store_str[i] != '\n')
+	len = 0;
+	while (store_str[len] != '\n')
+		len++;
+	while (store_str[len + i] != '\0')
 		i++;
-	line = malloc((i + 1) * sizeof(char));
-	line = substr(store_str,i)
+	line = malloc((len + 2) * sizeof(char));
+	tmp = malloc((i + 1) * sizeof(char));
+	line[len + 1] = '\0';
+	i = len;
+	while(i >= 0)
+	{
+		line[i] = store_str[i];
+		i--;
+	}
+	len += 1;
+	i = 0;
+	while (store_str[len + i] != '\0')
+	{
+		i++;
+		tmp[i] = store_str[len + i];
+	}
+	store_str = tmp;
+	return (line);
 }
 
 char	*get_next_line(int fd)
 {
-	char	*buff;
-	char	*store_str;
-	char	*oneline;
+	char		*store_str;
+	static char	*oneline;
 
+	store_str = NULL;
 	store_str = find_nl(fd,store_str);
 	oneline = get_l(store_str);
 	return (oneline);
