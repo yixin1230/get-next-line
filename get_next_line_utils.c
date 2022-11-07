@@ -6,25 +6,26 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 16:51:11 by yizhang       #+#    #+#                 */
-/*   Updated: 2022/11/07 15:49:25 by yizhang       ########   odam.nl         */
+/*   Updated: 2022/11/07 20:09:25 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-int		ft_strchr_gnl(const char *str,char c);
+char	*ft_strchr_gnl(char *str,char c);
 int 	ft_strlen_gnl(const char *str);
 char	*ft_strdup_gnl(char *s);
 char	*ft_strjoin_gnl(char *dst, char *src);
+char	*ft_substr_gnl(char *store_str, int start , int len);
 
-int	ft_strchr_gnl(const char *str,char c)
+char	*ft_strchr_gnl(char *str,char c)
 {
 	while(*str)
 	{
 		if(*str == c)
-			return (1);
+			return (str);
 		str++;
 	}
-	return (0);
+	return (NULL);
 }
 
 int ft_strlen_gnl(const char *str)
@@ -49,10 +50,11 @@ char	*ft_strdup_gnl(char *s)
 	str = malloc((len + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
+	str[len] = '\0';
 	while(len >= 0)
 	{
-		str[len] = s[len];
 		len--;
+		str[len] = s[len];
 	}
 	return (str);
 }
@@ -82,4 +84,22 @@ char	*ft_strjoin_gnl(char *s1, char *s2)
 		i++;
 	}
 	return (ret);
+}
+
+char	*ft_substr_gnl(char *store_str, int start , int len)
+{
+	char	*s;
+	int		i;
+
+	i = 0;
+	s = malloc((len + 1) * sizeof(char));
+	if (!s)
+		return (NULL);
+	while (len)
+	{
+		s[i] = store_str[i + start];
+		i++;
+		len--;
+	}
+	return (s);
 }
