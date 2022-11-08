@@ -6,12 +6,12 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/03 19:26:18 by yizhang       #+#    #+#                 */
-/*   Updated: 2022/11/07 16:48:40 by yizhang       ########   odam.nl         */
+/*   Updated: 2022/11/08 14:31:27 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <fcntl.h>//open
+#include <fcntl.h>
 #include <stdio.h>
 
 int main(void)
@@ -19,9 +19,15 @@ int main(void)
 	int	fd;
 
 	fd = open("text",O_RDONLY);
-	printf("1:%s\n",get_next_line(fd));
-	printf("2:%s\n",get_next_line(fd));
-	printf("3:%s\n",get_next_line(fd));
+	printf("get_next_line1:%s",get_next_line(fd));
+	printf("get_next_line2:%s",get_next_line(fd));
+	printf("get_next_line3:%s",get_next_line(fd));
+	printf("get_next_line4:%s",get_next_line(fd));
+	printf("get_next_line5:%s",get_next_line(fd));
+	printf("get_next_line6:%s",get_next_line(fd));
+	printf("get_next_line7:%s",get_next_line(fd));
+	printf("get_next_line7:%s",get_next_line(fd));
+	printf("get_next_line7:%s",get_next_line(fd));
 	close(fd);
 	return (0);
 }

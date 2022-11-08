@@ -6,26 +6,31 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 16:51:11 by yizhang       #+#    #+#                 */
-/*   Updated: 2022/11/07 20:09:25 by yizhang       ########   odam.nl         */
+/*   Updated: 2022/11/08 14:08:28 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-char	*ft_strchr_gnl(char *str,char c);
+int		ft_strchr_gnl(char *str,char c);
 int 	ft_strlen_gnl(const char *str);
 char	*ft_strdup_gnl(char *s);
 char	*ft_strjoin_gnl(char *dst, char *src);
 char	*ft_substr_gnl(char *store_str, int start , int len);
 
-char	*ft_strchr_gnl(char *str,char c)
+int	ft_strchr_gnl(char *str,char c)//return c 的具体位置
 {
-	while(*str)
+	int	i;
+
+	i = 0;
+	while(str[i])
 	{
-		if(*str == c)
-			return (str);
-		str++;
+		if (str[i] == c)
+			return (i);
+		i++;
 	}
-	return (NULL);
+	if (c == '\0')
+		return (i);
+	return (0);
 }
 
 int ft_strlen_gnl(const char *str)
@@ -50,7 +55,7 @@ char	*ft_strdup_gnl(char *s)
 	str = malloc((len + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
-	str[len] = '\0';
+	str[len + 1] = '\0';
 	while(len >= 0)
 	{
 		len--;
@@ -69,6 +74,8 @@ char	*ft_strjoin_gnl(char *s1, char *s2)
 		return (NULL);
 	len = ft_strlen_gnl(s1) + ft_strlen_gnl(s2);
 	ret = malloc((len + 1) * sizeof(char));
+	if(!ret)
+		return (NULL);
 	ret[len] = '\0';
 	i = 0;
 	while (s1[i])
@@ -95,11 +102,11 @@ char	*ft_substr_gnl(char *store_str, int start , int len)
 	s = malloc((len + 1) * sizeof(char));
 	if (!s)
 		return (NULL);
-	while (len)
+	while (i < len)
 	{
-		s[i] = store_str[i + start];
+		s[i] = store_str[start + i];
 		i++;
-		len--;
 	}
+	s[i] = '\0';
 	return (s);
 }
