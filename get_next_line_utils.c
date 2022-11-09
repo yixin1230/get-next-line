@@ -9,15 +9,14 @@
 /*   Updated: 2022/11/08 14:08:28 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "get_next_line.h"
+
 int		ft_strchr_gnl(char *str,char c);
-int 	ft_strlen_gnl(const char *str);
 char	*ft_strdup_gnl(char *s);
 char	*ft_strjoin_gnl(char *dst, char *src);
 char	*ft_substr_gnl(char *store_str, int start , int len);
 
-int	ft_strchr_gnl(char *str,char c)//return c 的具体位置
+int	ft_strchr_gnl(char *str, char c)//return c 的具体位置
 {
 	int	i;
 
@@ -33,34 +32,25 @@ int	ft_strchr_gnl(char *str,char c)//return c 的具体位置
 	return (0);
 }
 
-int ft_strlen_gnl(const char *str)
-{
-	int	i;
-
-	i = 0;
-	while(str[i])
-		i++;
-	return (i);
-}
-
 char	*ft_strdup_gnl(char *s)
 {
 	char	*str;
 	int		len;
+	int		i;
 
-	len = 0;
+	i = 0;
 	if(!s)
 		return (NULL);
-	len = ft_strlen_gnl(s);
+	len = ft_strchr_gnl(s,'\0');
 	str = malloc((len + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
-	str[len + 1] = '\0';
-	while(len >= 0)
+	while(len > i)
 	{
-		len--;
-		str[len] = s[len];
+		str[i] = s[i];
+		i++;
 	}
+	str[i] = '\0';
 	return (str);
 }
 
@@ -70,13 +60,12 @@ char	*ft_strjoin_gnl(char *s1, char *s2)
 	int		len;
 	int		i;
 
-	if (!s1 || !s2)
+	if (!s1 && !s2)
 		return (NULL);
-	len = ft_strlen_gnl(s1) + ft_strlen_gnl(s2);
+	len = ft_strchr_gnl(s1, '\0') + ft_strchr_gnl(s2, '\0');
 	ret = malloc((len + 1) * sizeof(char));
 	if(!ret)
 		return (NULL);
-	ret[len] = '\0';
 	i = 0;
 	while (s1[i])
 	{
@@ -90,6 +79,7 @@ char	*ft_strjoin_gnl(char *s1, char *s2)
 		ret[len + i] = s2[i];
 		i++;
 	}
+	ret[len + i] = '\0';
 	return (ret);
 }
 
@@ -100,7 +90,7 @@ char	*ft_substr_gnl(char *store_str, int start , int len)
 
 	i = 0;
 	s = malloc((len + 1) * sizeof(char));
-	if (!s)
+	if (!s || !store_str || !len)
 		return (NULL);
 	while (i < len)
 	{

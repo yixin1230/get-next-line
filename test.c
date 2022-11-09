@@ -22,12 +22,12 @@ int main(void)
 	printf("get_next_line1:%s",get_next_line(fd));
 	printf("get_next_line2:%s",get_next_line(fd));
 	printf("get_next_line3:%s",get_next_line(fd));
-	printf("get_next_line4:%s",get_next_line(fd));
-	printf("get_next_line5:%s",get_next_line(fd));
-	printf("get_next_line6:%s",get_next_line(fd));
-	printf("get_next_line7:%s",get_next_line(fd));
-	printf("get_next_line7:%s",get_next_line(fd));
-	printf("get_next_line7:%s",get_next_line(fd));
+	//printf("get_next_line4:%s",get_next_line(fd));
+	//printf("get_next_line5:%s",get_next_line(fd));
+	//printf("get_next_line6:%s",get_next_line(fd));
+	//printf("get_next_line7:%s",get_next_line(fd));
+	//printf("get_next_line8:%s",get_next_line(fd));
+	//printf("get_next_line9:%s",get_next_line(fd));
 	close(fd);
 	return (0);
 }
