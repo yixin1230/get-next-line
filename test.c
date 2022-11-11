@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/03 19:26:18 by yizhang       #+#    #+#                 */
-/*   Updated: 2022/11/08 14:31:27 by yizhang       ########   odam.nl         */
+/*   Updated: 2022/11/11 10:12:53 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,13 @@ int main(void)
 	printf("get_next_line1:%s",get_next_line(fd));
 	printf("get_next_line2:%s",get_next_line(fd));
 	printf("get_next_line3:%s",get_next_line(fd));
-	//printf("get_next_line4:%s",get_next_line(fd));
-	//printf("get_next_line5:%s",get_next_line(fd));
-	//printf("get_next_line6:%s",get_next_line(fd));
-	//printf("get_next_line7:%s",get_next_line(fd));
-	//printf("get_next_line8:%s",get_next_line(fd));
-	//printf("get_next_line9:%s",get_next_line(fd));
+	printf("get_next_line4:%s",get_next_line(fd));
+	printf("get_next_line5:%s",get_next_line(fd));
+	printf("get_next_line6:%s",get_next_line(fd));
+	printf("get_next_line7:%s",get_next_line(fd));
+	printf("get_next_line8:%s",get_next_line(fd));
+	printf("get_next_line9:%s",get_next_line(fd));
 	close(fd);
+	//system("leaks a.out");
 	return (0);
 }
