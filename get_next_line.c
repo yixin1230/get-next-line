@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 16:48:59 by yizhang       #+#    #+#                 */
-/*   Updated: 2022/11/11 11:38:25 by yizhang       ########   odam.nl         */
+/*   Updated: 2022/11/11 12:33:38 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ static char	*find_nl(int fd, char *store_str)
 	while (i)
 	{
 		i = read(fd, buff, BUFFER_SIZE);
-		buff[i] = '\0';
 		if (i < 0)
 			return (NULL);
+		buff[i] = '\0';
 		if (i == 0)
 			break ;
 		if (!store_str)
@@ -63,7 +63,10 @@ static char	*get_oneline(char **store_str)
 		oneline_len = ft_len_gnl(*store_str, '\0');
 	line = ft_substr_gnl(*store_str, 0, oneline_len);
 	if (!line)
-		return (NULL);
+	{
+		free (*store_str);
+		return (line);
+	}
 	*store_str = store_remaining(store_str, oneline_len);
 	return (line);
 }
@@ -73,6 +76,8 @@ char	*get_next_line(int fd)
 	static char	*store_str;
 	char		*oneline;
 
+	if (fd < 0 || BUFFER_SIZE < 1)
+		return (NULL);
 	store_str = find_nl(fd, store_str);
 	if (!store_str)
 		return (NULL);

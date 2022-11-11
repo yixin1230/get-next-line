@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 16:51:11 by yizhang       #+#    #+#                 */
-/*   Updated: 2022/11/11 11:35:53 by yizhang       ########   odam.nl         */
+/*   Updated: 2022/11/11 12:57:02 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*ft_strdup_gnl(char *s)
 		return (NULL);
 	len = ft_len_gnl(s, '\0');
 	str = malloc((len + 1) * sizeof(char));
-	if (!str)
+	if (!str || len == 0)
 		return (NULL);
 	while (len > i)
 	{
@@ -83,7 +83,6 @@ char	*ft_strjoin_gnl(char *s1, char *s2)
 	len = ft_len_gnl(s1, '\0') + ft_len_gnl(s2, '\0');
 	ret = malloc((len + 1) * sizeof(char));
 	if (!ret)
-
 		return (NULL);
 	len = 0;
 	while (s1[len])
@@ -98,6 +97,7 @@ char	*ft_strjoin_gnl(char *s1, char *s2)
 		i++;
 	}
 	ret[len + i] = '\0';
+	free (s1);
 	return (ret);
 }
 
@@ -108,7 +108,7 @@ char	*ft_substr_gnl(char *store_str, int start, int len)
 
 	i = 0;
 	s = malloc((len + 1) * sizeof(char));
-	if (!s || !store_str || !len)
+	if (!s)
 		return (NULL);
 	while (i < len)
 	{
