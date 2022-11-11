@@ -6,24 +6,24 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 16:51:11 by yizhang       #+#    #+#                 */
-/*   Updated: 2022/11/11 10:18:58 by yizhang       ########   odam.nl         */
+/*   Updated: 2022/11/11 11:35:53 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int		ft_len_gnl(char *str,char c);
+int		ft_len_gnl(char *str, char c);
 char	*ft_strdup_gnl(char *s);
 char	*ft_strjoin_gnl(char *dst, char *src);
-char	*ft_substr_gnl(char *store_str, int start , int len);
+char	*ft_substr_gnl(char *store_str, int start, int len);
 char	*ft_strchr_gnl(char *str, char c);
 
-int	ft_len_gnl(char *str, char c)//return c 的具体位置
+int	ft_len_gnl(char *str, char c)
 {
 	int	i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
 		if (str[i] == c)
 			return (i);
@@ -39,7 +39,7 @@ char	*ft_strchr_gnl(char *str, char c)
 	int	i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
 		if (str[i] == c)
 			return (str + i);
@@ -57,13 +57,13 @@ char	*ft_strdup_gnl(char *s)
 	int		i;
 
 	i = 0;
-	if(!s)
+	if (!s)
 		return (NULL);
-	len = ft_len_gnl(s,'\0');
+	len = ft_len_gnl(s, '\0');
 	str = malloc((len + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
-	while(len > i)
+	while (len > i)
 	{
 		str[i] = s[i];
 		i++;
@@ -78,19 +78,19 @@ char	*ft_strjoin_gnl(char *s1, char *s2)
 	int		len;
 	int		i;
 
-	if (!s1 && !s2)
+	if (!s2)
 		return (NULL);
 	len = ft_len_gnl(s1, '\0') + ft_len_gnl(s2, '\0');
 	ret = malloc((len + 1) * sizeof(char));
-	if(!ret || !len)
+	if (!ret)
+
 		return (NULL);
-	i = 0;
-	while (s1[i])
+	len = 0;
+	while (s1[len])
 	{
-		ret[i] = s1[i]; 
-		i++;
+		ret[len] = s1[len];
+		len++;
 	}
-	len = i;
 	i = 0;
 	while (s2[i])
 	{
@@ -101,7 +101,7 @@ char	*ft_strjoin_gnl(char *s1, char *s2)
 	return (ret);
 }
 
-char	*ft_substr_gnl(char *store_str, int start , int len)
+char	*ft_substr_gnl(char *store_str, int start, int len)
 {
 	char	*s;
 	int		i;
