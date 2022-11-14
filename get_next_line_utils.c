@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 16:51:11 by yizhang       #+#    #+#                 */
-/*   Updated: 2022/11/11 12:57:02 by yizhang       ########   odam.nl         */
+/*   Updated: 2022/11/14 13:17:23 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,11 @@ char	*ft_strdup_gnl(char *s)
 	if (!s)
 		return (NULL);
 	len = ft_len_gnl(s, '\0');
+	if (len == 0)
+		return (free(s),NULL);
 	str = malloc((len + 1) * sizeof(char));
-	if (!str || len == 0)
-		return (NULL);
+	if (!str)
+		return (free(s),NULL);
 	while (len > i)
 	{
 		str[i] = s[i];
@@ -101,20 +103,28 @@ char	*ft_strjoin_gnl(char *s1, char *s2)
 	return (ret);
 }
 
-char	*ft_substr_gnl(char *store_str, int start, int len)
+char	*ft_substr_gnl(char *s, int start, int len)
 {
-	char	*s;
+	char	*s1;
+	int		s_len;
 	int		i;
 
 	i = 0;
-	s = malloc((len + 1) * sizeof(char));
-	if (!s)
+	s_len = ft_len_gnl(s, '\0');
+	if (!len)
 		return (NULL);
+	if (start >= s_len || len == 0 || s_len == 0)
+		return (NULL);
+	if (len > s_len - start)
+		len = s_len - start;
+	s1 = malloc((len + 1) * sizeof(char));
+	if (s1 == NULL)
+		return (s1);
 	while (i < len)
 	{
-		s[i] = store_str[start + i];
+		s1[i] = s[start + i];
 		i++;
 	}
-	s[i] = '\0';
-	return (s);
+	s1[i] = '\0';
+	return (s1);
 }

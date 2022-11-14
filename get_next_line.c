@@ -6,12 +6,12 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 16:48:59 by yizhang       #+#    #+#                 */
-/*   Updated: 2022/11/11 12:33:38 by yizhang       ########   odam.nl         */
+/*   Updated: 2022/11/14 13:22:50 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
+#include <stdio.h>
 static char	*find_nl(int fd, char *store_str)
 {
 	int		i;
@@ -22,10 +22,10 @@ static char	*find_nl(int fd, char *store_str)
 	{
 		i = read(fd, buff, BUFFER_SIZE);
 		if (i < 0)
-			return (NULL);
-		buff[i] = '\0';
+			return (free(store_str), NULL);
 		if (i == 0)
 			break ;
+		buff[i] = '\0';
 		if (!store_str)
 			store_str = ft_strdup_gnl(buff);
 		else
@@ -48,39 +48,35 @@ static char	*store_remaining(char **store_str, int oneline_len)
 		return (NULL);
 	}
 	tmp = ft_substr_gnl(*store_str, oneline_len, len);
-	free(*store_str);
-	return (tmp);
+	if (!tmp)
+		return (tmp);
+	return (free(*store_str), tmp);
 }
 
 static char	*get_oneline(char **store_str)
 {
 	int		oneline_len;
-	char	*line;
+	char	*oneline;
 
 	if (ft_strchr_gnl(*store_str, '\n'))
 		oneline_len = ft_len_gnl(*store_str, '\n') + 1;
 	else
 		oneline_len = ft_len_gnl(*store_str, '\0');
-	line = ft_substr_gnl(*store_str, 0, oneline_len);
-	if (!line)
-	{
-		free (*store_str);
-		return (line);
-	}
+	oneline = ft_substr_gnl(*store_str, 0, oneline_len);
+	if (!oneline)
+		return (free (*store_str),oneline);
 	*store_str = store_remaining(store_str, oneline_len);
-	return (line);
+	return (oneline);
 }
 
 char	*get_next_line(int fd)
 {
 	static char	*store_str;
-	char		*oneline;
 
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
 	store_str = find_nl(fd, store_str);
 	if (!store_str)
 		return (NULL);
-	oneline = get_oneline(&store_str);
-	return (oneline);
+	return (get_oneline(&store_str));
 }
