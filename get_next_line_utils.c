@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 16:51:11 by yizhang       #+#    #+#                 */
-/*   Updated: 2022/11/14 13:17:23 by yizhang       ########   odam.nl         */
+/*   Updated: 2022/11/15 18:48:38 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,14 @@ char	*ft_strdup_gnl(char *s)
 	int		i;
 
 	i = 0;
-	if (!s)
+	if (!s || !*s)
 		return (NULL);
 	len = ft_len_gnl(s, '\0');
 	if (len == 0)
-		return (free(s),NULL);
-	str = malloc((len + 1) * sizeof(char));
+		return (free(s), NULL);
+	str = malloc(len + 1);
 	if (!str)
-		return (free(s),NULL);
+		return (NULL);
 	while (len > i)
 	{
 		str[i] = s[i];
@@ -81,11 +81,11 @@ char	*ft_strjoin_gnl(char *s1, char *s2)
 	int		i;
 
 	if (!s2)
-		return (NULL);
+		return (free(s1), NULL);
 	len = ft_len_gnl(s1, '\0') + ft_len_gnl(s2, '\0');
-	ret = malloc((len + 1) * sizeof(char));
+	ret = malloc(len + 1);
 	if (!ret)
-		return (NULL);
+		return (free(s1), NULL);
 	len = 0;
 	while (s1[len])
 	{
@@ -117,9 +117,9 @@ char	*ft_substr_gnl(char *s, int start, int len)
 		return (NULL);
 	if (len > s_len - start)
 		len = s_len - start;
-	s1 = malloc((len + 1) * sizeof(char));
-	if (s1 == NULL)
-		return (s1);
+	s1 = malloc(len + 1);
+	if (!s1)
+		return (NULL);
 	while (i < len)
 	{
 		s1[i] = s[start + i];
