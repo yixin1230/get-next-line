@@ -6,12 +6,11 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 16:48:59 by yizhang       #+#    #+#                 */
-/*   Updated: 2022/11/15 18:47:29 by yizhang       ########   odam.nl         */
+/*   Updated: 2022/11/15 19:02:28 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 static char	*find_nl(int fd, char *store_str)
 {
